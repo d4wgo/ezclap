@@ -11,6 +11,9 @@ app.get('/',function(req,res){
 app.get('/privacy',function(req,res){
     res.sendFile(path.join(__dirname+'/client/privacy.html'));
 });
+app.get('/assets',function(req,res){
+    res.sendFile(path.join(__dirname+'/client/assets.html'));
+});
 server.listen(8085, function() {
     console.log('Starting server on port 8085');
 });

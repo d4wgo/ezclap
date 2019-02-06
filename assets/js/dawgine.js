@@ -771,53 +771,92 @@ function switchScene(a){
     }
 }
 var goalScene = 1;
-var logoRing = new Image();
-logoRing.src = "/assets/main/mainlogoring.png";
-var logoText = new Image();
-logoRing.src = "/assets/main/mainlogotext.png";
-var rectangleButton = new Image();
-rectangleButton.src = "/assets/main/rectanglebutton.png";
-var rectangleButtonHovered = new Image();
-rectangleButtonHovered.src = "/assets/main/rectanglebuttonhovered.png";
+var dawgImage = new Image();
+dawgImage.src = "/assets/main/dawglogo2x.png";
+var dawgImageHovered = new Image();
+dawgImageHovered.src = "/assets/main/dawglogo2xHovered.png";
 function scene1(a){
     if(a == "start"){
         //start function for scene1
-        
+        ui.push(new GameObject("dawg",800,450,800,800));
+        var d = findObject("dawg");
+        d.image = new Image();
+        d.image.src = "/assets/main/dawglogo2x.png";
+        buttons.push(new GameObject("full",800,450,1600,900));
     }
     else{
         //logic for scene 1
-        
+        var d = findObject("dawg");
+        var n = findObject("full");
+        if(n.hovered){
+            d.image = dawgImageHovered;
+        }
+        else{
+            d.image = dawgImage;
+        }
+        if(n.clicked){
+            switchScene(2);
+        }
     }
 }
 var tT = 0;
 function scene2(a){
     if(a == "start"){
-        tT = 0;
-        ui.push(new GameObject("loadSprite",800,450,100,100));
-        var s = findObject("loadSprite");
-        s.image = new Image();
-        s.image.src = "/assets/main/mainlogoring.png";
-        s.rotation = 0;
-        ui.push(new GameObject("title",800,250,0,0));
-        var t = findObject("title");
-        t.text = "Loading";
-        t.textColor = "white";
-        t.textSize = 60;
+        ui.push(new GameObject("dawg",800,450,800,800));
+        var d = findObject("dawg");
+        d.image = new Image();
+        d.image.src = "/assets/main/dawglogo2x.png";
+        d.rotation = 0;
+        buttons.push(new GameObject("full",800,450,1600,900));
     }
     else{
+        var d = findObject("dawg");
+        var n = findObject("full");
+        if(n.hovered){
+            d.image = dawgImageHovered;
+        }
+        else{
+            d.image = dawgImage;
+        }
         tT += delta;
-        var s = findObject("loadSprite");
-        s.rotation += delta/100;
-        if(tT > 1500){
-            switchScene(goalScene);
+        d.rotation += delta/(3000 - tT) * 6;
+        if(tT > 3000){
+            switchScene(3);
         }
     }
 }
 function scene3(a){
     if(a == "start"){
-
+        nullObjects.push(new GameObject("backG",800,450,1600,900));
+        findObject("backG").color = "white";
+        nullObjects.push(new GameObject("backText",800,250,0,0));
+        var b = findObject("backText");
+        b.text = "Welcome to Dawg.cc, go ahead and explore a bit.";
+        b.textSize = 60;
+        b.textColor = "black";
+        ui.push(new GameObject("q1",400,225,800,450));
+        findObject("q1").color = "black";
+        ui.push(new GameObject("q2",1200,225,800,450));
+        findObject("q2").color = "black";
+        ui.push(new GameObject("q3",400,675,800,450));
+        findObject("q3").color = "black";
+        ui.push(new GameObject("q4",1200,675,800,450));
+        findObject("q4").color = "black";
     }
     else{
+        var q1 = findObject("q1");
+        var q2 = findObject("q2");
+        var q3 = findObject("q3");
+        var q4 = findObject("q4");
+        var rate = 5;
+        q1.x -= delta / rate;
+        q1.y -= delta / rate;
+        q2.x += delta / rate;
+        q2.y -= delta / rate;
+        q3.x -= delta / rate;
+        q3.y += delta / rate;
+        q4.x += delta / rate;
+        q4.y += delta / rate;
         
     }
 }
