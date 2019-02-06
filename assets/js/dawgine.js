@@ -802,6 +802,7 @@ function scene1(a){
 var tT = 0;
 function scene2(a){
     if(a == "start"){
+        tT = 1500;
         ui.push(new GameObject("dawg",800,450,800,800));
         var d = findObject("dawg");
         d.image = new Image();
@@ -830,6 +831,10 @@ function scene2(a){
         }
     }
 }
+var rp = new Image();
+rp.src = "/assets/main/panelReact.png";
+var rpHovered = new Image();
+rpHovered.src = "/assets/main/panelReactHovered.png";
 function scene3(a){
     if(a == "start"){
         nullObjects.push(new GameObject("backG",800,450,1600,900));
@@ -847,6 +852,7 @@ function scene3(a){
         findObject("q3").color = "black";
         ui.push(new GameObject("q4",1200,675,800,450));
         findObject("q4").color = "black";
+        buttons.push(new GameObject("reactPanel",400,450,400,200));
     }
     else{
         var q1 = findObject("q1");
@@ -862,7 +868,16 @@ function scene3(a){
         q3.y += delta / rate;
         q4.x += delta / rate;
         q4.y += delta / rate;
-        
+        var rpn = findObject("reactPanel");
+        if(rpn.hovered){
+            rpn.image = rpHovered;
+        }
+        else{
+            rpn.image = rp;
+        }
+        if(rpn.clicked){
+            window.location.href = "https://react.dawg.cc";
+        }
     }
 }
 function scene4(a){
