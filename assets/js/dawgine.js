@@ -819,8 +819,13 @@ function scene2(a){
             d.image = dawgImage;
         }
         tT += delta;
-        d.rotation += delta/(3000 - tT) * 6;
-        if(tT > 3000){
+        if(tT < 3000){
+            d.rotation += delta/(3000 - tT) * 6;
+        }
+        else{
+            d.rotation += delta * 6;
+        }
+        if(tT > 4000){
             switchScene(3);
         }
     }
