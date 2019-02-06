@@ -8,7 +8,7 @@ var buttons = []; //clickable buttons
 //syntax:
 //new var newGO = GameObject(id,x,y,posX,posY,sizeX,sizeY);
 //font:
-var font = "Iceberg";
+var font = "myriad-pro";
 var worldTextAlign = "center";
 //gameObjects.push(newGO);
 class GameObject{
@@ -27,7 +27,7 @@ class GameObject{
         this.gravityTimer = 0;
         this.yForce = 0;
         this.text = null;
-        this.textColor = "white";
+        this.textColor = "black";
         this.textSize = 20;
         this.textOffsetY = 0;
         this.textOffsetX = 0;
@@ -35,7 +35,6 @@ class GameObject{
         this.changeX = 0;
         this.changeY = 0;
         this.rotateBox = null;
-        this.bringToFront = false;
     }
 }
 function findObject(id){
@@ -420,8 +419,7 @@ window.addEventListener('resize', function(){
     }
     scaleX = canvas.width / virtualWidth;
     scaleY = canvas.height / virtualHeight;
-});
-//refreshes canvas size a set times per second - the "10" is changeable to whatever tickrate works the best
+}); //refreshes canvas size a set times per second - the "10" is changeable to whatever tickrate works the best
 //canvas fit functions
 function fullScreenCanvas(){
     canvas.width = window.innerWidth;
@@ -444,8 +442,11 @@ function aspectRatioFullScreenCanvas(){
     document.getElementById('rightBar').style.width = (window.innerWidth - canvas.width)/2 + "px";
     document.getElementById('leftBar').style.height = canvas.height + "px";
     document.getElementById('rightBar').style.height = canvas.height + "px";
-    document.getElementById('topBar').style.height = (window.innerHeight - canvas.height)/2 + "px";
-    document.getElementById('bottomBar').style.height = (window.innerHeight - canvas.height)/2 + "px";
+    var ntt = (window.innerHeight - canvas.height)/2;
+    document.getElementById('topBar').style.height = ntt + "px";
+    document.getElementById('bottomBar').style.height = ntt + "px";
+    document.getElementById('leftBar').style.top = ntt + "px";
+    document.getElementById('rightBar').style.top = ntt + "px";
 }
 function fitDivCanvas(){
     var divIn = document.getElementById("myDIV"); //replace myDiv with the div the canvas is within
@@ -463,6 +464,8 @@ function getCursorPosition(canvas, event) {
 function pythagTheorem(a,b){
     return Math.sqrt(Math.pow(a,2) + Math.pow(b,2));
 }
+var oDistX = 0;
+var oDistY = 0;
 var scene = 1;
 function start(){
     scene = 1;
@@ -599,8 +602,6 @@ function runGame(){
     window.requestAnimationFrame(runGame);
 }
 window.requestAnimationFrame(runGame);
-var oDistX = 0;
-var oDistY = 0;
 function draw(){
     ctx.setTransform(1,0,0,1,0,0);
     ctx.clearRect(0,0,canvas.width,canvas.height);
@@ -769,52 +770,47 @@ function switchScene(a){
             break;
     }
 }
-var b1 = new Image();
-b1.src = "static/images/buttondefault.png"; 
-var b2 = new Image();
-b2.src = "static/images/buttondefaultpressed.png";
+var goalScene = 1;
+var logoRing = new Image();
+logoRing.src = "/assets/main/mainlogoring.png";
+var logoText = new Image();
+logoRing.src = "/assets/main/mainlogotext.png";
+var rectangleButton = new Image();
+rectangleButton.src = "/assets/main/rectanglebutton.png";
+var rectangleButtonHovered = new Image();
+rectangleButtonHovered.src = "/assets/main/rectanglebuttonhovered.png";
 function scene1(a){
     if(a == "start"){
         //start function for scene1
-        loadNew("id=back^type=nullObject^x=800^y=450^sx=1600^sy=900^image=static/images/background.png");
-        ui.push(new GameObject("select",800,100,0,0));
-        var select = findObject("select");
-        select.text = "Site Select";
-        select.textColor = "white";
-        select.textSize = 64;
-        buttons.push(new GameObject("g1b",400,300,530,300));
-        var g1b = findObject("g1b");
-        g1b.image = b1;
-        g1b.text = "React";
-        g1b.textSize = 48;
-        g1b.textOffsetY = 105;
-        ui.push(new GameObject("g1i",400,260,350,127));
-        findObject("g1i").image = new Image();
-        findObject("g1i").image.src = "static/images/reactlogo.png";
+        
     }
     else{
         //logic for scene 1
-        var g1b = findObject("g1b");
-        var g1i = findObject("g1i");
-        if(g1b.hovered){
-            g1b.image = b2;
-            g1b.textOffsetY = 115;
-            g1i.y = 270;
-        }
-        else{
-            g1b.image = b1;
-            g1b.textOffsetY = 105;
-            g1i.y = 260;
-        }
-        if(g1b.clicked){
-            window.location.href = "https://react.dawg.cc/";
-        }
+        
     }
 }
+var tT = 0;
 function scene2(a){
     if(a == "start"){
+        tT = 0;
+        ui.push(new GameObject("loadSprite",800,450,100,100));
+        var s = findObject("loadSprite");
+        s.image = new Image();
+        s.image.src = "/assets/main/mainlogoring.png";
+        s.rotation = 0;
+        ui.push(new GameObject("title",800,250,0,0));
+        var t = findObject("title");
+        t.text = "Loading";
+        t.textColor = "white";
+        t.textSize = 60;
     }
     else{
+        tT += delta;
+        var s = findObject("loadSprite");
+        s.rotation += delta/100;
+        if(tT > 1500){
+            switchScene(goalScene);
+        }
     }
 }
 function scene3(a){
