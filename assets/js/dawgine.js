@@ -802,7 +802,7 @@ function scene1(a){
 var tT = 0;
 function scene2(a){
     if(a == "start"){
-        tT = 1500;
+        tT = 0;
         ui.push(new GameObject("dawg",800,450,800,800));
         var d = findObject("dawg");
         d.image = new Image();
@@ -822,11 +822,10 @@ function scene2(a){
         tT += delta;
         if(tT < 3000){
             d.rotation += delta/(3000 - tT) * 6;
+            d.sizeX = 800 * (3000 - tT)/3000;
+            d.sizeY = 800 * (3000 - tT)/3000;
         }
-        else{
-            d.rotation += delta * 6;
-        }
-        if(tT > 4000){
+        if(tT > 3000){
             switchScene(3);
         }
     }
