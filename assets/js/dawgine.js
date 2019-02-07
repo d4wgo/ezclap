@@ -782,17 +782,24 @@ function scene1(a){
         var d = findObject("dawg");
         d.image = new Image();
         d.image.src = "/assets/main/dawglogo2x.png";
+        ui.push(new GameObject("clickm",800,450,0,0));
+        var t = findObject("clickm");
+        t.textColor = "black";
+        t.textSize = 48;
         buttons.push(new GameObject("full",800,450,1600,900));
     }
     else{
         //logic for scene 1
         var d = findObject("dawg");
         var n = findObject("full");
+        var t = findObject("clickm");
         if(n.hovered){
             d.image = dawgImageHovered;
+            t.text = "(Click Me)";
         }
         else{
             d.image = dawgImage;
+            t.text = "";
         }
         if(n.clicked){
             switchScene(2);
@@ -834,6 +841,21 @@ var rp = new Image();
 rp.src = "/assets/main/panelReact.png";
 var rpHovered = new Image();
 rpHovered.src = "/assets/main/panelReactHovered.png";
+//-
+var ap = new Image();
+ap.src = "/assets/main/panelAssets.png";
+var apHovered = new Image();
+apHovered.src = "/assets/main/panelAssetsHovered.png";
+//-
+var pp = new Image();
+pp.src = "/assets/main/panelProjects.png";
+var ppHovered = new Image();
+ppHovered.src = "/assets/main/panelProjectsHovered.png";
+//-
+var pop = new Image();
+pop.src = "/assets/main/panelPong.png";
+var popHovered = new Image();
+popHovered.src = "/assets/main/panelPongHovered.png";
 function scene3(a){
     if(a == "start"){
         nullObjects.push(new GameObject("backG",800,450,1600,900));
@@ -852,6 +874,9 @@ function scene3(a){
         ui.push(new GameObject("q4",1200,675,800,450));
         findObject("q4").color = "black";
         buttons.push(new GameObject("reactPanel",400,450,400,200));
+        buttons.push(new GameObject("assetsPanel",1200,450,400,200));
+        buttons.push(new GameObject("projectsPanel",400,700,400,200));
+        buttons.push(new GameObject("pongPanel",1200,700,400,200));
     }
     else{
         var q1 = findObject("q1");
@@ -868,6 +893,9 @@ function scene3(a){
         q4.x += delta / rate;
         q4.y += delta / rate;
         var rpn = findObject("reactPanel");
+        var apn = findObject("assetsPanel");
+        var ppn = findObject("projectsPanel");
+        var popn = findObject("pongPanel");
         if(rpn.hovered){
             rpn.image = rpHovered;
         }
@@ -876,6 +904,36 @@ function scene3(a){
         }
         if(rpn.clicked){
             window.location.href = "https://react.dawg.cc";
+        }
+        //-
+        if(apn.hovered){
+            apn.image = apHovered;
+        }
+        else{
+            apn.image = ap;
+        }
+        if(apn.clicked){
+            window.location.href = "/assets";
+        }
+        //-
+        if(ppn.hovered){
+            ppn.image = ppHovered;
+        }
+        else{
+            ppn.image = pp;
+        }
+        if(ppn.clicked){
+            window.location.href = "/projects";
+        }
+        //-
+        if(popn.hovered){
+            popn.image = popHovered;
+        }
+        else{
+            popn.image = pop;
+        }
+        if(popn.clicked){
+            switchScene(1);
         }
     }
 }
